@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { brastlewarkTownResponse ->
-                            adapter = HomeRecyclerAdapter(brastlewarkTownResponse.brastlewarkPopulation)
+                            adapter = HomeRecyclerAdapter(brastlewarkTownResponse.brastlewarkPopulation, this@HomeFragment)
                         }
                     }
                 }
