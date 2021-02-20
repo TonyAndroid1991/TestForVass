@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.adapters.HomeRecyclerAdapter
@@ -53,10 +54,15 @@ class HomeFragment : Fragment() {
         homeBinding.homeRecyclerview.apply {
             layoutManager = LinearLayoutManager(activity)
 
+
             homeBinding.homeViewModel?.brastlewarkTownData?.observe(viewLifecycleOwner, Observer { response ->
                 when (response) {
                     is Resource.Success -> {
                         response.data?.let { brastlewarkTownResponse ->
+
+//                            val action = HomeFragmentDirections.actionHomeFragmentToGnomeDetailsFragment(brastlewarkTownResponse.brastlewarkPopulation[0])
+//                            findNavController().navigate(action)
+
                             adapter = HomeRecyclerAdapter(brastlewarkTownResponse.brastlewarkPopulation, this@HomeFragment)
                         }
                     }

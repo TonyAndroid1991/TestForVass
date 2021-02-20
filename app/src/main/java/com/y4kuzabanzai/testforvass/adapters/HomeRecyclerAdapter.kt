@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -18,6 +17,7 @@ import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.databinding.GnomeElementBinding
 import com.y4kuzabanzai.testforvass.fragments.HomeFragment
+import com.y4kuzabanzai.testforvass.fragments.HomeFragmentDirections
 
 class HomeRecyclerAdapter(
     var gnomesList: List<Gnome>, var homeFragment: HomeFragment
@@ -39,7 +39,8 @@ class HomeRecyclerAdapter(
             is GnomesViewHolder -> {
                 holder.bindElements(gnomesList[position])
                 holder.binding.gnomeElement.setOnClickListener {
-                    homeFragment.findNavController().navigate(R.id.action_homeFragment_to_gnomeDetailsFragment)
+                    val action = HomeFragmentDirections.actionHomeFragmentToGnomeDetailsFragment(gnomesList[position])
+                    homeFragment.findNavController().navigate(action)
                 }
             }
         }
