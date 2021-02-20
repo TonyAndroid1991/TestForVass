@@ -1,6 +1,8 @@
 package com.y4kuzabanzai.testforvass.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +12,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.y4kuzabanzai.testforvass.GnomeEnumInfo
+import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.adapters.HomeRecyclerAdapter
 import com.y4kuzabanzai.testforvass.databinding.FragmentHomeBinding
-import com.y4kuzabanzai.testforvass.utils.Resource
 import com.y4kuzabanzai.testforvass.viewmodels.HomeFragmentViewModel
 
 
@@ -39,7 +40,10 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         assembleSearchBySpinner()
-        setRecycler()
+
+        viewModel.brastlewarkTownPopulation.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, "onCreateView: ${it[3].id} =================================")
+        })
 
         return binding.root
     }
@@ -53,45 +57,172 @@ class HomeFragment : Fragment() {
             }
     }
 
-    fun setRecycler() {
-        binding.homeRecyclerview.apply {
-            layoutManager = LinearLayoutManager(activity)
-
-            viewModel?.brastlewarkTownData?.observe(
-                viewLifecycleOwner,
-                Observer { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            response.data?.let { brastlewarkTownResponse ->
-
-                                adapter = HomeRecyclerAdapter(
-                                    brastlewarkTownResponse.brastlewarkPopulation,
-                                    this@HomeFragment
-                                )
-                            }
-                        }
-                    }
-                })
-        }
-    }
-
-
-    fun assembleSearchBySpinner() {
-        var mutableList: MutableList<Any>
-
-        binding.searchBySpinner.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, viewModel?.searchByEnumArray())
-        binding.searchBySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+    private fun assembleSearchBySpinner() {
+        binding.searchBySpinner.adapter = ArrayAdapter(
+            requireActivity(),
+            android.R.layout.simple_list_item_1,
+            viewModel?.searchByEnumArray()
+        )
+        binding.searchBySpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                @SuppressLint("FragmentLiveDataObserve")
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
                     id: Long
                 ) {
-
                     when (viewModel.searchByEnumArray()[position]) {
+
+                        GnomeEnumInfo.ALL -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    setCustomAdapter(populationList as ArrayList<Gnome>)
+                                })
+                        }
+
                         GnomeEnumInfo.AGE -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByAge: ArrayList<Int> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByAge.contains(gnome.age)) {
+                                            gnomesListByAge.add(gnome.age)
+                                            gnomesListByAge.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.AGE,
+                                                gnomesListByAge
+                                            )
+                                        }
+                                    }
+                                })
+                        }
+
+                        GnomeEnumInfo.FRIENDS -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByName: ArrayList<String> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByName.contains(gnome.name)) {
+                                            gnomesListByName.add(gnome.name)
+                                            gnomesListByName.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.FRIENDS,
+                                                gnomesListByName
+                                            )
+                                        }
+                                    }
+                                })
+                        }
+
+                        GnomeEnumInfo.HAIR_COLOR -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByHairColor: ArrayList<String> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByHairColor.contains(gnome.hairColor)) {
+                                            gnomesListByHairColor.add(gnome.hairColor)
+                                            gnomesListByHairColor.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.HAIR_COLOR,
+                                                gnomesListByHairColor
+                                            )
+                                        }
+                                    }
+                                })
 
                         }
+
+                        GnomeEnumInfo.HEIGHT -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByAge: ArrayList<Double> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByAge.contains(gnome.height)) {
+                                            gnomesListByAge.add(gnome.height)
+                                            gnomesListByAge.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.HEIGHT,
+                                                gnomesListByAge
+                                            )
+                                        }
+                                    }
+                                })
+                        }
+
+                        GnomeEnumInfo.ID -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByAge: ArrayList<Int> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByAge.contains(gnome.id)) {
+                                            gnomesListByAge.add(gnome.id)
+                                            gnomesListByAge.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.ID,
+                                                gnomesListByAge
+                                            )
+                                        }
+                                    }
+                                })
+                        }
+
+                        GnomeEnumInfo.NAME -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByName: ArrayList<String> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByName.contains(gnome.name)) {
+                                            gnomesListByName.add(gnome.name)
+                                            gnomesListByName.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.NAME,
+                                                gnomesListByName
+                                            )
+                                        }
+                                    }
+                                })
+                        }
+
+                        GnomeEnumInfo.PROFESSIONS -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+
+                                    var allProfessions =
+                                        viewModel.getAllProfessions(populationList as ArrayList<Gnome>)
+                                    assembleSearchBySelectionSpinner(
+                                        GnomeEnumInfo.PROFESSIONS,
+                                        allProfessions
+                                    )
+                                })
+                        }
+
+                        GnomeEnumInfo.WEIGHT -> {
+                            viewModel.brastlewarkTownPopulation.observe(
+                                this@HomeFragment,
+                                { populationList ->
+                                    var gnomesListByAge: ArrayList<Double> = arrayListOf()
+                                    for (gnome in populationList) {
+                                        if (!gnomesListByAge.contains(gnome.weight)) {
+                                            gnomesListByAge.add(gnome.weight)
+                                            gnomesListByAge.sort()
+                                            assembleSearchBySelectionSpinner(
+                                                GnomeEnumInfo.WEIGHT,
+                                                gnomesListByAge
+                                            )
+                                        }
+                                    }
+                                })
+                        }
+
                     }
                 }
 
@@ -101,9 +232,13 @@ class HomeFragment : Fragment() {
             }
     }
 
-    fun assembleSearchBySelectionSpinner() {
-//        binding.searchBySelectionSpinner.adapter =
-//            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, searchBy)
+    fun <T> assembleSearchBySelectionSpinner(
+        enumInfo: GnomeEnumInfo,
+        polymorphArrayList: ArrayList<T>
+    ) {
+        var selectedGnomesList: ArrayList<Gnome> = arrayListOf()
+        binding.searchBySelectionSpinner.adapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, polymorphArrayList)
         binding.searchBySelectionSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
 
@@ -113,12 +248,101 @@ class HomeFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    // binding.spinnerText.text = searchBy[position]
+                    viewModel.brastlewarkTownPopulation.observe(
+                        this@HomeFragment,
+                        { populationList ->
+
+                            when (enumInfo) {
+                                GnomeEnumInfo.AGE -> {
+                                    for (gnome in populationList) {
+                                        if (gnome.age.equals(parent?.getItemAtPosition(position))) {
+                                            selectedGnomesList.add(gnome)
+                                            setCustomAdapter(selectedGnomesList)
+                                        }
+                                    }
+                                }
+
+                                GnomeEnumInfo.FRIENDS -> {
+                                    var gnomesByFriends = viewModel.checkCommonFriends(
+                                        parent?.getItemAtPosition(position).toString(),
+                                        populationList as ArrayList<Gnome>
+                                    )
+                                    setCustomAdapter(gnomesByFriends)
+                                }
+
+                                GnomeEnumInfo.HAIR_COLOR -> {
+                                    for (gnome in populationList) {
+                                        if (gnome.hairColor.equals(
+                                                parent?.getItemAtPosition(
+                                                    position
+                                                )
+                                            )
+                                        ) {
+                                            selectedGnomesList.add(gnome)
+                                            setCustomAdapter(selectedGnomesList)
+                                        }
+                                    }
+                                }
+
+                                GnomeEnumInfo.HEIGHT -> {
+                                    for (gnome in populationList) {
+                                        if (gnome.height.equals(parent?.getItemAtPosition(position))) {
+                                            selectedGnomesList.add(gnome)
+                                            setCustomAdapter(selectedGnomesList)
+                                        }
+                                    }
+                                }
+
+                                GnomeEnumInfo.ID -> {
+                                    for (gnome in populationList) {
+                                        if (gnome.id.equals(parent?.getItemAtPosition(position))) {
+                                            selectedGnomesList.add(gnome)
+                                            setCustomAdapter(selectedGnomesList)
+                                        }
+                                    }
+                                }
+
+                                GnomeEnumInfo.NAME -> {
+                                    for (gnome in populationList) {
+                                        if (gnome.name.equals(parent?.getItemAtPosition(position))) {
+                                            selectedGnomesList.add(gnome)
+                                            setCustomAdapter(selectedGnomesList)
+                                        }
+                                    }
+                                }
+
+                                GnomeEnumInfo.PROFESSIONS -> {
+                                    var gnomesByProfessions = viewModel.checkCommonProfessions(
+                                        parent?.getItemAtPosition(position).toString(),
+                                        populationList as ArrayList<Gnome>
+                                    )
+                                    setCustomAdapter(gnomesByProfessions)
+                                }
+
+                                GnomeEnumInfo.WEIGHT -> {
+                                    for (gnome in populationList) {
+                                        if (gnome.weight.equals(parent?.getItemAtPosition(position))) {
+                                            selectedGnomesList.add(gnome)
+                                            setCustomAdapter(selectedGnomesList)
+                                        }
+                                    }
+                                }
+                            }
+                        })
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     //binding.spinnerText.text = "Select an option"
                 }
             }
+    }
+
+    private fun setCustomAdapter(selectedGnomesList: ArrayList<Gnome>) {
+
+        binding.homeRecyclerview.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = HomeRecyclerAdapter(selectedGnomesList, this@HomeFragment)
+
+        }
     }
 }
