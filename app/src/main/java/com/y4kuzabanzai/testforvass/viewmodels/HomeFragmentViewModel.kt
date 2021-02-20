@@ -3,6 +3,7 @@ package com.y4kuzabanzai.testforvass.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.y4kuzabanzai.testforvass.GnomeEnumInfo
 import com.y4kuzabanzai.testforvass.Models.BrastlewarkTown
 import com.y4kuzabanzai.testforvass.repository.AppRepository
 import com.y4kuzabanzai.testforvass.utils.Resource
@@ -30,5 +31,18 @@ class HomeFragmentViewModel : ViewModel() {
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun searchByEnumArray(): Array<GnomeEnumInfo> {
+        return arrayOf(
+             GnomeEnumInfo.NAME,
+             GnomeEnumInfo.AGE,
+             GnomeEnumInfo.ID,
+             GnomeEnumInfo.WEIGHT,
+             GnomeEnumInfo.HEIGHT,
+             GnomeEnumInfo.HAIR_COLOR,
+             GnomeEnumInfo.PROFESSIONS,
+             GnomeEnumInfo.FRIENDS
+         )
     }
 }
