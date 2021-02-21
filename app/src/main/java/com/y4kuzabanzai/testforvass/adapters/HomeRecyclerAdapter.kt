@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
@@ -58,16 +59,16 @@ class HomeRecyclerAdapter(var homeFragment: HomeFragment
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .format(DecodeFormat.PREFER_ARGB_8888)
 
             Glide.with(binding.root.context)
                 .applyDefaultRequestOptions(requestOptions)
-                //.load(gnome.thumbnail)
-                .load("https://image.tmdb.org/t/p/original/y2Yp7KC2FJSsdlRM5qkkIwQGCqU.jpg")
+                .load(gnome.thumbnail)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean
                     ): Boolean {
-                        Log.e(TAG, "onLoadFailed: ${e} =========")
+                        Log.e(TAG, "onLoadFailed: ${e}")
                         return false
                     }
 
