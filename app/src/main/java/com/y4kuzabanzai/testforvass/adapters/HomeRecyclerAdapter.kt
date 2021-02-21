@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -19,9 +20,8 @@ import com.y4kuzabanzai.testforvass.databinding.GnomeElementBinding
 import com.y4kuzabanzai.testforvass.fragments.HomeFragment
 import com.y4kuzabanzai.testforvass.fragments.HomeFragmentDirections
 
-class HomeRecyclerAdapter(
-    var gnomesList: List<Gnome>, var homeFragment: HomeFragment
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeRecyclerAdapter(var homeFragment: HomeFragment
+): ListAdapter<Gnome, RecyclerView.ViewHolder>(GnomeDiffUtil()) {
 
     companion object {
         private const val TAG = "HomeRecyclerAdapter"
@@ -37,19 +37,14 @@ class HomeRecyclerAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is GnomesViewHolder -> {
-                holder.bindElements(gnomesList[position])
+                holder.bindElements(getItem(position))
                 holder.binding.gnomeElement.setOnClickListener {
-                    val action = HomeFragmentDirections.actionHomeFragmentToGnomeDetailsFragment(gnomesList[position])
+                    val action = HomeFragmentDirections.actionHomeFragmentToGnomeDetailsFragment(getItem(position))
                     homeFragment.findNavController().navigate(action)
                 }
             }
         }
     }
-
-    override fun getItemCount(): Int {
-        return gnomesList.size
-    }
-
 
     class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolder(binding.root) {
 

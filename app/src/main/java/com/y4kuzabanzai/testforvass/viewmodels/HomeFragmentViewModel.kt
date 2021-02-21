@@ -53,18 +53,6 @@ class HomeFragmentViewModel : ViewModel() {
         return enumArray
     }
 
-
-    fun getAllAges(totalGnomesPopulation: ArrayList<Gnome>): ArrayList<Int> {
-        var gnomesListByAge: ArrayList<Int> = arrayListOf()
-        for (gnome in totalGnomesPopulation) {
-            if (!gnomesListByAge.contains(gnome.age)) {
-                gnomesListByAge.add(gnome.age)
-                gnomesListByAge.sort()
-            }
-        }
-        return gnomesListByAge
-    }
-
     fun checkCommonFriends(
         friendName: String,
         totalGnomesPopulation: ArrayList<Gnome>
@@ -91,6 +79,17 @@ class HomeFragmentViewModel : ViewModel() {
             }
         }
         return gnomesByProfessions
+    }
+
+    fun getAllAges(totalGnomesPopulation: ArrayList<Gnome>): ArrayList<Int> {
+        var gnomesListByAge: ArrayList<Int> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!gnomesListByAge.contains(gnome.age)) {
+                gnomesListByAge.add(gnome.age)
+                gnomesListByAge.sort()
+            }
+        }
+        return gnomesListByAge
     }
 
     fun getAllProfessions(totalGnomesPopulation: ArrayList<Gnome>): ArrayList<String> {
@@ -162,5 +161,17 @@ class HomeFragmentViewModel : ViewModel() {
         }
         return allWeights
     }
+
+    fun addGnomeToAgeList(itemAtPosition: Any?, populationList: List<Gnome>): ArrayList<Gnome> {
+        var selectedGnomesByAgeList: ArrayList<Gnome> = arrayListOf()
+
+        for (gnome in populationList) {
+            if (gnome.age.equals(itemAtPosition)) {
+                selectedGnomesByAgeList.add(gnome)
+            }
+        }
+        return selectedGnomesByAgeList
+   }
+
 
 }

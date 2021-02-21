@@ -2,7 +2,6 @@ package com.y4kuzabanzai.testforvass.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.y4kuzabanzai.testforvass.GnomeEnumInfo
 import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
@@ -177,6 +176,7 @@ class HomeFragment : Fragment() {
             }
     }
 
+
     fun <T> assembleSearchBySelectionSpinner(
         enumInfo: GnomeEnumInfo,
         polymorphArrayList: ArrayList<T>
@@ -199,15 +199,12 @@ class HomeFragment : Fragment() {
 
                             when (enumInfo) {
                                 GnomeEnumInfo.AGE -> {
-                                    for (gnome in populationList) {
-                                        if (gnome.age.equals(parent?.getItemAtPosition(position))) {
-                                            selectedGnomesList.add(gnome)
-                                            setCustomAdapter(selectedGnomesList)
-                                        }
-                                    }
+                                   setCustomAdapter(viewModel.addGnomeToAgeList(parent?.getItemAtPosition(position), populationList))
                                 }
 
                                 GnomeEnumInfo.FRIENDS -> {
+
+                                    selectedGnomesList.clear()
                                     var gnomesByFriends = viewModel.checkCommonFriends(
                                         parent?.getItemAtPosition(position).toString(),
                                         populationList as ArrayList<Gnome>
@@ -216,6 +213,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.HAIR_COLOR -> {
+                                    selectedGnomesList.clear()
                                     for (gnome in populationList) {
                                         if (gnome.hairColor.equals(
                                                 parent?.getItemAtPosition(
@@ -230,6 +228,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.HEIGHT -> {
+                                    selectedGnomesList.clear()
                                     for (gnome in populationList) {
                                         if (gnome.height.equals(parent?.getItemAtPosition(position))) {
                                             selectedGnomesList.add(gnome)
@@ -239,6 +238,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.ID -> {
+                                    selectedGnomesList.clear()
                                     for (gnome in populationList) {
                                         if (gnome.id.equals(parent?.getItemAtPosition(position))) {
                                             selectedGnomesList.add(gnome)
@@ -248,6 +248,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.NAME -> {
+                                    selectedGnomesList.clear()
                                     for (gnome in populationList) {
                                         if (gnome.name.equals(parent?.getItemAtPosition(position))) {
                                             selectedGnomesList.add(gnome)
@@ -257,6 +258,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.PROFESSIONS -> {
+                                    selectedGnomesList.clear()
                                     var gnomesByProfessions = viewModel.checkCommonProfessions(
                                         parent?.getItemAtPosition(position).toString(),
                                         populationList as ArrayList<Gnome>
@@ -265,6 +267,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.WEIGHT -> {
+                                    selectedGnomesList.clear()
                                     for (gnome in populationList) {
                                         if (gnome.weight.equals(parent?.getItemAtPosition(position))) {
                                             selectedGnomesList.add(gnome)
@@ -286,7 +289,9 @@ class HomeFragment : Fragment() {
 
         binding.homeRecyclerview.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = HomeRecyclerAdapter(selectedGnomesList, this@HomeFragment)
+            adapter = HomeRecyclerAdapter(this@HomeFragment) as HomeRecyclerAdapter
+            val homeRecyclerAdapter = adapter as HomeRecyclerAdapter
+            homeRecyclerAdapter.submitList(selectedGnomesList)
 
         }
     }
