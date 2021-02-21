@@ -41,10 +41,6 @@ class HomeFragment : Fragment() {
 
         assembleSearchBySpinner()
 
-        viewModel.brastlewarkTownPopulation.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "onCreateView: ${it[3].id} =================================")
-        })
-
         return binding.root
     }
 
@@ -75,101 +71,66 @@ class HomeFragment : Fragment() {
                     when (viewModel.searchByEnumArray()[position]) {
 
                         GnomeEnumInfo.ALL -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
+
                                     setCustomAdapter(populationList as ArrayList<Gnome>)
                                 })
                         }
 
                         GnomeEnumInfo.AGE -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByAge: ArrayList<Int> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByAge.contains(gnome.age)) {
-                                            gnomesListByAge.add(gnome.age)
-                                            gnomesListByAge.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.AGE,
-                                                gnomesListByAge
-                                            )
-                                        }
-                                    }
+
+                                    var allAges = viewModel.getAllAges(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(GnomeEnumInfo.AGE, allAges)
                                 })
                         }
 
                         GnomeEnumInfo.FRIENDS -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByName: ArrayList<String> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByName.contains(gnome.name)) {
-                                            gnomesListByName.add(gnome.name)
-                                            gnomesListByName.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.FRIENDS,
-                                                gnomesListByName
-                                            )
-                                        }
-                                    }
+
+                                    var allNames =
+                                        viewModel.getAllNames(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(
+                                        GnomeEnumInfo.FRIENDS,
+                                        allNames
+                                    )
                                 })
                         }
 
                         GnomeEnumInfo.HAIR_COLOR -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByHairColor: ArrayList<String> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByHairColor.contains(gnome.hairColor)) {
-                                            gnomesListByHairColor.add(gnome.hairColor)
-                                            gnomesListByHairColor.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.HAIR_COLOR,
-                                                gnomesListByHairColor
-                                            )
-                                        }
-                                    }
-                                })
 
+                                    var allHairColors =
+                                        viewModel.getAllHairs(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(
+                                        GnomeEnumInfo.HAIR_COLOR,
+                                        allHairColors
+                                    )
+                                })
                         }
 
                         GnomeEnumInfo.HEIGHT -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByAge: ArrayList<Double> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByAge.contains(gnome.height)) {
-                                            gnomesListByAge.add(gnome.height)
-                                            gnomesListByAge.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.HEIGHT,
-                                                gnomesListByAge
-                                            )
-                                        }
-                                    }
+                                    var allHeights =
+                                        viewModel.getAllHeigths(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(
+                                        GnomeEnumInfo.HEIGHT,
+                                        allHeights
+                                    )
                                 })
                         }
 
                         GnomeEnumInfo.ID -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByAge: ArrayList<Int> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByAge.contains(gnome.id)) {
-                                            gnomesListByAge.add(gnome.id)
-                                            gnomesListByAge.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.ID,
-                                                gnomesListByAge
-                                            )
-                                        }
-                                    }
+                                    var allIDs = viewModel.getAllIDs(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(GnomeEnumInfo.ID, allIDs)
+
                                 })
                         }
 
@@ -177,25 +138,15 @@ class HomeFragment : Fragment() {
                             viewModel.brastlewarkTownPopulation.observe(
                                 this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByName: ArrayList<String> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByName.contains(gnome.name)) {
-                                            gnomesListByName.add(gnome.name)
-                                            gnomesListByName.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.NAME,
-                                                gnomesListByName
-                                            )
-                                        }
-                                    }
+                                    var allNames =
+                                        viewModel.getAllNames(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(GnomeEnumInfo.NAME, allNames)
                                 })
                         }
 
                         GnomeEnumInfo.PROFESSIONS -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-
                                     var allProfessions =
                                         viewModel.getAllProfessions(populationList as ArrayList<Gnome>)
                                     assembleSearchBySelectionSpinner(
@@ -206,20 +157,14 @@ class HomeFragment : Fragment() {
                         }
 
                         GnomeEnumInfo.WEIGHT -> {
-                            viewModel.brastlewarkTownPopulation.observe(
-                                this@HomeFragment,
+                            viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-                                    var gnomesListByAge: ArrayList<Double> = arrayListOf()
-                                    for (gnome in populationList) {
-                                        if (!gnomesListByAge.contains(gnome.weight)) {
-                                            gnomesListByAge.add(gnome.weight)
-                                            gnomesListByAge.sort()
-                                            assembleSearchBySelectionSpinner(
-                                                GnomeEnumInfo.WEIGHT,
-                                                gnomesListByAge
-                                            )
-                                        }
-                                    }
+                                    var allWeights =
+                                        viewModel.getAllWeights(populationList as ArrayList)
+                                    assembleSearchBySelectionSpinner(
+                                        GnomeEnumInfo.WEIGHT,
+                                        allWeights
+                                    )
                                 })
                         }
 

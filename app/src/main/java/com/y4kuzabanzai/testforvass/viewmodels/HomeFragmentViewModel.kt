@@ -53,8 +53,22 @@ class HomeFragmentViewModel : ViewModel() {
         return enumArray
     }
 
-    fun checkCommonFriends(friendName: String, totalGnomesPopulation: ArrayList<Gnome>): ArrayList<Gnome> {
 
+    fun getAllAges(totalGnomesPopulation: ArrayList<Gnome>): ArrayList<Int> {
+        var gnomesListByAge: ArrayList<Int> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!gnomesListByAge.contains(gnome.age)) {
+                gnomesListByAge.add(gnome.age)
+                gnomesListByAge.sort()
+            }
+        }
+        return gnomesListByAge
+    }
+
+    fun checkCommonFriends(
+        friendName: String,
+        totalGnomesPopulation: ArrayList<Gnome>
+    ): ArrayList<Gnome> {
         var gnomesByFriends: ArrayList<Gnome> = arrayListOf()
 
         for (gnome in totalGnomesPopulation) {
@@ -65,7 +79,10 @@ class HomeFragmentViewModel : ViewModel() {
         return gnomesByFriends
     }
 
-    fun checkCommonProfessions(profession: String, totalGnomesPopulation: ArrayList<Gnome>): ArrayList<Gnome> {
+    fun checkCommonProfessions(
+        profession: String,
+        totalGnomesPopulation: ArrayList<Gnome>
+    ): ArrayList<Gnome> {
         var gnomesByProfessions: ArrayList<Gnome> = arrayListOf()
 
         for (gnome in totalGnomesPopulation) {
@@ -90,4 +107,60 @@ class HomeFragmentViewModel : ViewModel() {
         }
         return allProfessions
     }
+
+    fun getAllHairs(totalGnomesPopulation: java.util.ArrayList<Gnome>): ArrayList<String> {
+        var allHairColors: ArrayList<String> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!allHairColors.contains(gnome.hairColor)) {
+                allHairColors.add(gnome.hairColor)
+                allHairColors.sort()
+            }
+        }
+        return allHairColors
+    }
+
+    fun getAllNames(totalGnomesPopulation: ArrayList<Gnome>): ArrayList<String> {
+        var allNames: ArrayList<String> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!allNames.contains(gnome.name)) {
+                allNames.add(gnome.name)
+                allNames.sort()
+            }
+        }
+        return allNames
+    }
+
+    fun getAllHeigths(totalGnomesPopulation: java.util.ArrayList<Gnome>): ArrayList<Double> {
+        var allHeigths: ArrayList<Double> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!allHeigths.contains(gnome.height)) {
+                allHeigths.add(gnome.height)
+                allHeigths.sort()
+            }
+        }
+        return allHeigths
+    }
+
+    fun getAllIDs(totalGnomesPopulation: ArrayList<Gnome>): ArrayList<Int> {
+        var allIDs: ArrayList<Int> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!allIDs.contains(gnome.id)) {
+                allIDs.add(gnome.id)
+                allIDs.sort()
+            }
+        }
+        return allIDs
+    }
+
+    fun getAllWeights(totalGnomesPopulation: java.util.ArrayList<Gnome>): ArrayList<Double> {
+        var allWeights: ArrayList<Double> = arrayListOf()
+        for (gnome in totalGnomesPopulation) {
+            if (!allWeights.contains(gnome.weight)) {
+                allWeights.add(gnome.weight)
+                allWeights.sort()
+            }
+        }
+        return allWeights
+    }
+
 }
