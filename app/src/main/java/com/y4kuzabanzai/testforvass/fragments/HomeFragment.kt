@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.y4kuzabanzai.testforvass.GnomeEnumInfo
 import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
@@ -199,13 +198,12 @@ class HomeFragment : Fragment() {
 
                             when (enumInfo) {
                                 GnomeEnumInfo.AGE -> {
-                                   setCustomAdapter(viewModel.addGnomeToAgeList(parent?.getItemAtPosition(position), populationList))
+                                   setCustomAdapter(viewModel.groupGnomesByAge(parent?.getItemAtPosition(position), populationList))
                                 }
 
                                 GnomeEnumInfo.FRIENDS -> {
-
                                     selectedGnomesList.clear()
-                                    var gnomesByFriends = viewModel.checkCommonFriends(
+                                    var gnomesByFriends = viewModel.groupGnomesByCommonFriends(
                                         parent?.getItemAtPosition(position).toString(),
                                         populationList as ArrayList<Gnome>
                                     )
@@ -213,53 +211,24 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.HAIR_COLOR -> {
-                                    selectedGnomesList.clear()
-                                    for (gnome in populationList) {
-                                        if (gnome.hairColor.equals(
-                                                parent?.getItemAtPosition(
-                                                    position
-                                                )
-                                            )
-                                        ) {
-                                            selectedGnomesList.add(gnome)
-                                            setCustomAdapter(selectedGnomesList)
-                                        }
-                                    }
+                                    setCustomAdapter(viewModel.groupGnomesByHairColor(parent?.getItemAtPosition(position), populationList))
                                 }
 
                                 GnomeEnumInfo.HEIGHT -> {
-                                    selectedGnomesList.clear()
-                                    for (gnome in populationList) {
-                                        if (gnome.height.equals(parent?.getItemAtPosition(position))) {
-                                            selectedGnomesList.add(gnome)
-                                            setCustomAdapter(selectedGnomesList)
-                                        }
-                                    }
+                                    setCustomAdapter(viewModel.groupGnomesByHeight(parent?.getItemAtPosition(position), populationList))
                                 }
 
                                 GnomeEnumInfo.ID -> {
-                                    selectedGnomesList.clear()
-                                    for (gnome in populationList) {
-                                        if (gnome.id.equals(parent?.getItemAtPosition(position))) {
-                                            selectedGnomesList.add(gnome)
-                                            setCustomAdapter(selectedGnomesList)
-                                        }
-                                    }
+                                    setCustomAdapter(viewModel.groupGnomesById(parent?.getItemAtPosition(position), populationList))
                                 }
 
                                 GnomeEnumInfo.NAME -> {
-                                    selectedGnomesList.clear()
-                                    for (gnome in populationList) {
-                                        if (gnome.name.equals(parent?.getItemAtPosition(position))) {
-                                            selectedGnomesList.add(gnome)
-                                            setCustomAdapter(selectedGnomesList)
-                                        }
-                                    }
+                                    setCustomAdapter(viewModel.groupGnomesByName(parent?.getItemAtPosition(position), populationList))
                                 }
 
                                 GnomeEnumInfo.PROFESSIONS -> {
                                     selectedGnomesList.clear()
-                                    var gnomesByProfessions = viewModel.checkCommonProfessions(
+                                    var gnomesByProfessions = viewModel.groupGnomesByProfessions(
                                         parent?.getItemAtPosition(position).toString(),
                                         populationList as ArrayList<Gnome>
                                     )
@@ -267,13 +236,7 @@ class HomeFragment : Fragment() {
                                 }
 
                                 GnomeEnumInfo.WEIGHT -> {
-                                    selectedGnomesList.clear()
-                                    for (gnome in populationList) {
-                                        if (gnome.weight.equals(parent?.getItemAtPosition(position))) {
-                                            selectedGnomesList.add(gnome)
-                                            setCustomAdapter(selectedGnomesList)
-                                        }
-                                    }
+                                    setCustomAdapter(viewModel.groupGnomesByWeight(parent?.getItemAtPosition(position), populationList))
                                 }
                             }
                         })

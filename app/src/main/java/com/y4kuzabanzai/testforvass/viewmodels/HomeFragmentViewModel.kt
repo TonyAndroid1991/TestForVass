@@ -53,7 +53,7 @@ class HomeFragmentViewModel : ViewModel() {
         return enumArray
     }
 
-    fun checkCommonFriends(
+    fun groupGnomesByCommonFriends(
         friendName: String,
         totalGnomesPopulation: ArrayList<Gnome>
     ): ArrayList<Gnome> {
@@ -67,7 +67,7 @@ class HomeFragmentViewModel : ViewModel() {
         return gnomesByFriends
     }
 
-    fun checkCommonProfessions(
+    fun groupGnomesByProfessions(
         profession: String,
         totalGnomesPopulation: ArrayList<Gnome>
     ): ArrayList<Gnome> {
@@ -162,7 +162,7 @@ class HomeFragmentViewModel : ViewModel() {
         return allWeights
     }
 
-    fun addGnomeToAgeList(itemAtPosition: Any?, populationList: List<Gnome>): ArrayList<Gnome> {
+    fun groupGnomesByAge(itemAtPosition: Any?, populationList: List<Gnome>): ArrayList<Gnome> {
         var selectedGnomesByAgeList: ArrayList<Gnome> = arrayListOf()
 
         for (gnome in populationList) {
@@ -172,6 +172,61 @@ class HomeFragmentViewModel : ViewModel() {
         }
         return selectedGnomesByAgeList
    }
+
+    fun groupGnomesByHairColor(itemAtPosition: Any?, populationList: List<Gnome>): ArrayList<Gnome> {
+        var selectedGnomesByHairColorList: ArrayList<Gnome> = arrayListOf()
+
+        for (gnome in populationList) {
+            if (gnome.hairColor.equals(itemAtPosition)) {
+                selectedGnomesByHairColorList.add(gnome)
+            }
+        }
+        return selectedGnomesByHairColorList
+    }
+
+    fun groupGnomesByHeight(itemAtPosition: Any?, populationList: List<Gnome>): java.util.ArrayList<Gnome> {
+        var selectedGnomesByHeightList: ArrayList<Gnome> = arrayListOf()
+
+        for (gnome in populationList) {
+            if (gnome.height.equals(itemAtPosition)) {
+                selectedGnomesByHeightList.add(gnome)
+            }
+        }
+        return selectedGnomesByHeightList
+    }
+
+    fun groupGnomesById(itemAtPosition: Any?, populationList: List<Gnome>): ArrayList<Gnome> {
+        var selectedGnomesByIdList: ArrayList<Gnome> = arrayListOf()
+
+        for (gnome in populationList) {
+            if (gnome.id.equals(itemAtPosition)) {
+                selectedGnomesByIdList.add(gnome)
+            }
+        }
+        return selectedGnomesByIdList
+    }
+
+    fun groupGnomesByName(itemAtPosition: Any?, populationList: List<Gnome>): java.util.ArrayList<Gnome> {
+        var selectedGnomesByName: ArrayList<Gnome> = arrayListOf()
+
+        for (gnome in populationList) {
+            if (gnome.name.equals(itemAtPosition)) {
+                selectedGnomesByName.add(gnome)
+            }
+        }
+        return selectedGnomesByName
+    }
+
+    fun groupGnomesByWeight(itemAtPosition: Any?, populationList: List<Gnome>): java.util.ArrayList<Gnome> {
+        var selectedGnomesByWeight: ArrayList<Gnome> = arrayListOf()
+
+        for (gnome in populationList) {
+            if (gnome.weight.equals(itemAtPosition)) {
+                selectedGnomesByWeight.add(gnome)
+            }
+        }
+        return selectedGnomesByWeight
+    }
 
 
 }
