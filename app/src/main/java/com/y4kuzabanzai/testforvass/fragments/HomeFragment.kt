@@ -71,7 +71,8 @@ class HomeFragment : Fragment() {
                         GnomeEnumInfo.ALL -> {
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
-
+                                    binding.searchBySelectionSpinner.visibility = View.GONE
+                                    binding.searchBySelectionText.visibility = View.GONE
                                     setCustomAdapter(populationList as ArrayList<Gnome>)
                                 })
                         }
@@ -80,6 +81,7 @@ class HomeFragment : Fragment() {
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
 
+                                   checkVisivility()
                                     var allAges = viewModel.getAllAges(populationList as ArrayList)
                                     assembleSearchBySelectionSpinner(GnomeEnumInfo.AGE, allAges)
                                 })
@@ -89,6 +91,7 @@ class HomeFragment : Fragment() {
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
 
+                                    checkVisivility()
                                     var allNames =
                                         viewModel.getAllNames(populationList as ArrayList)
                                     assembleSearchBySelectionSpinner(
@@ -102,6 +105,8 @@ class HomeFragment : Fragment() {
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
 
+                                    checkVisivility()
+
                                     var allHairColors =
                                         viewModel.getAllHairs(populationList as ArrayList)
                                     assembleSearchBySelectionSpinner(
@@ -112,6 +117,8 @@ class HomeFragment : Fragment() {
                         }
 
                         GnomeEnumInfo.HEIGHT -> {
+
+                            checkVisivility()
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
                                     var allHeights =
@@ -124,6 +131,9 @@ class HomeFragment : Fragment() {
                         }
 
                         GnomeEnumInfo.ID -> {
+
+                            checkVisivility()
+
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
                                     var allIDs = viewModel.getAllIDs(populationList as ArrayList)
@@ -133,6 +143,7 @@ class HomeFragment : Fragment() {
                         }
 
                         GnomeEnumInfo.NAME -> {
+                            checkVisivility()
                             viewModel.brastlewarkTownPopulation.observe(
                                 this@HomeFragment,
                                 { populationList ->
@@ -143,6 +154,7 @@ class HomeFragment : Fragment() {
                         }
 
                         GnomeEnumInfo.PROFESSIONS -> {
+                            checkVisivility()
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
                                     var allProfessions =
@@ -155,6 +167,7 @@ class HomeFragment : Fragment() {
                         }
 
                         GnomeEnumInfo.WEIGHT -> {
+                            checkVisivility()
                             viewModel.brastlewarkTownPopulation.observe(this@HomeFragment,
                                 { populationList ->
                                     var allWeights =
@@ -246,6 +259,16 @@ class HomeFragment : Fragment() {
                     //binding.spinnerText.text = "Select an option"
                 }
             }
+    }
+
+    fun checkVisivility() {
+        if ( binding.searchBySelectionSpinner.visibility == View.GONE) {
+            binding.searchBySelectionSpinner.visibility = View.VISIBLE
+        }
+
+        if ( binding.searchBySelectionText.visibility == View.GONE) {
+            binding.searchBySelectionText.visibility = View.VISIBLE
+        }
     }
 
     private fun setCustomAdapter(selectedGnomesList: ArrayList<Gnome>) {
