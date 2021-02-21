@@ -1,6 +1,5 @@
 package com.y4kuzabanzai.testforvass.adapters
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,64 +21,74 @@ import com.y4kuzabanzai.testforvass.databinding.GnomeElementBinding
 import com.y4kuzabanzai.testforvass.fragments.HomeFragment
 import com.y4kuzabanzai.testforvass.fragments.HomeFragmentDirections
 
-class HomeRecyclerAdapter(var homeFragment: HomeFragment
-): ListAdapter<Gnome, RecyclerView.ViewHolder>(GnomeDiffUtil()) {
+class HomeRecyclerAdapter(var homeFragment: HomeFragment): ListAdapter<Gnome, GnomesViewHolder>(GnomeDiffUtil()) {
+
+    lateinit var gnomeElementBinding: GnomeElementBinding
 
     companion object {
         private const val TAG = "HomeRecyclerAdapter"
     }
 
-    lateinit var gnomeElementBinding: GnomeElementBinding
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GnomesViewHolder {
         gnomeElementBinding = GnomeElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GnomesViewHolder(gnomeElementBinding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GnomesViewHolder, position: Int) {
         when (holder) {
             is GnomesViewHolder -> {
                 holder.bindElements(getItem(position))
                 holder.binding.gnomeElement.setOnClickListener {
-                    val action = HomeFragmentDirections.actionHomeFragmentToGnomeDetailsFragment(getItem(position))
+                    val action = HomeFragmentDirections.actionHomeFragmentToGnomeDetailsFragment(
+                        getItem(position)
+                    )
                     homeFragment.findNavController().navigate(action)
                 }
             }
         }
     }
+}
 
-    class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolder(binding.root) {
+class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bindElements(gnome: Gnome) {
+    fun bindElements(gnome: Gnome) {
 
-            binding.name.text = itemView.context.getString(R.string.name).plus(" " + gnome.name)
-            binding.age.text =itemView.context.getString(R.string.age).plus(" " + gnome.age.toString())
-            binding.gnomeElementId.text =itemView.context.getString(R.string.id).plus(" " + gnome.id.toString())
+        binding.name.text = itemView.context.getString(R.string.name).plus(" " + gnome.name)
+        binding.age.text = itemView.context.getString(R.string.age).plus(" " + gnome.age.toString())
+        binding.gnomeElementId.text =
+            itemView.context.getString(R.string.id).plus(" " + gnome.id.toString())
 
-           // Log.i(TAG, "bindElements: ${gnome.thumbnail}")
 
-            val requestOptions = RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .format(DecodeFormat.PREFER_ARGB_8888)
+        val requestOptions = RequestOptions()
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .format(DecodeFormat.PREFER_ARGB_8888)
 
-            Glide.with(binding.root.context)
-                .applyDefaultRequestOptions(requestOptions)
-                .load(gnome.thumbnail)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean
-                    ): Boolean {
-                        Log.e(TAG, "onLoadFailed: ${e}")
-                        return false
-                    }
+        Glide.with(binding.root.context)
+            .applyDefaultRequestOptions(requestOptions)
+            .load(gnome.thumbnail)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Log.e("imageStatus", "onLoadFailed: ${e}")
+                    return false
+                }
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean
-                    ): Boolean {
-                        return true
-                    }
-                })
-                .into(binding.gnomeImage)
-        }
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return true
+                }
+            })
+            .into(binding.gnomeImage)
     }
 }
