@@ -1,9 +1,11 @@
 package com.y4kuzabanzai.testforvass.adapters
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,13 +22,14 @@ import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.databinding.GnomeElementBinding
 import com.y4kuzabanzai.testforvass.fragments.HomeFragment
 import com.y4kuzabanzai.testforvass.fragments.HomeFragmentDirections
+import com.y4kuzabanzai.testforvass.viewmodels.GlideApp
 
 class HomeRecyclerAdapter(var homeFragment: HomeFragment): ListAdapter<Gnome, GnomesViewHolder>(GnomeDiffUtil()) {
 
     lateinit var gnomeElementBinding: GnomeElementBinding
 
     companion object {
-        private const val TAG = "HomeRecyclerAdapter"
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GnomesViewHolder {
@@ -62,12 +65,13 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
         val requestOptions = RequestOptions()
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.ic_launcher_background)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .format(DecodeFormat.PREFER_ARGB_8888)
 
-        Glide.with(binding.root.context)
+
+        GlideApp.with(itemView.context)
             .applyDefaultRequestOptions(requestOptions)
             .load(gnome.thumbnail)
+            .timeout(60000)
+            .override(320, 480)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -75,8 +79,17 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.e("imageStatus", "onLoadFailed: ${e}")
-                    return false
+                    Log.e("Glide", "onLoadFailed: $e  =========")
+                    Toast.makeText(itemView.context, "Glide failed to connect or obtain the data", Toast.LENGTH_LONG).show()
+
+                    GlideApp.with(itemView)
+                        .applyDefaultRequestOptions(requestOptions)
+                        .load("https://image.tmdb.org/t/p/original/y2Yp7KC2FJSsdlRM5qkkIwQGCqU.jpg")
+                        .timeout(60000)
+                        .override(320, 480)
+                        .into(binding.gnomeImage)
+
+                    return true
                 }
 
                 override fun onResourceReady(
@@ -86,8 +99,9 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    return true
+                    return false
                 }
+
             })
             .into(binding.gnomeImage)
     }
