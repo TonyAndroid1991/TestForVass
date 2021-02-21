@@ -1,5 +1,6 @@
 package com.y4kuzabanzai.testforvass.adapters
 
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,8 +52,9 @@ class HomeRecyclerAdapter(var homeFragment: HomeFragment
 
         fun bindElements(gnome: Gnome) {
 
-            binding.name.text = gnome.name
-            binding.age.text = gnome.age.toString()
+            binding.name.text = itemView.context.getString(R.string.name).plus(" " + gnome.name)
+            binding.age.text =itemView.context.getString(R.string.age).plus(" " + gnome.age.toString())
+            binding.gnomeElementId.text =itemView.context.getString(R.string.id).plus(" " + gnome.id.toString())
 
            // Log.i(TAG, "bindElements: ${gnome.thumbnail}")
 
