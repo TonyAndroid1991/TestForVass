@@ -39,11 +39,11 @@ class GnomeDetailsFragment : Fragment() {
     private fun setCurrentGnomeInfo() {
         binding.apply {
             detailsName.text = currentGnome.name
-            detailsAge.text = currentGnome.age.toString()
-            detailsWeight.text = currentGnome.weight.toString()
-            detailsHeight.text = currentGnome.height.toString()
-            detailsHairColor.text = currentGnome.hairColor
-            detailsId.text = currentGnome.id.toString()
+            detailsAge.text = getString(R.string.age).plus(" " + currentGnome.age.toString())
+            detailsWeight.text = getString(R.string.weight).plus(" " + currentGnome.weight.toString())
+            detailsHeight.text = getString(R.string.height).plus(" " + currentGnome.height.toString())
+            detailsHairColor.text = getString(R.string.hair_color).plus(" " + currentGnome.hairColor)
+            detailsId.text = getString(R.string.id).plus(" " + currentGnome.id.toString())
 
             setFriendsList()
             setProfessionsList()
