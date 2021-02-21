@@ -82,13 +82,6 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
                     Log.e("Glide", "onLoadFailed: $e  =========")
                     Toast.makeText(itemView.context, "Glide failed to connect or obtain the data", Toast.LENGTH_LONG).show()
 
-                    GlideApp.with(itemView)
-                        .applyDefaultRequestOptions(requestOptions)
-                        .load("https://image.tmdb.org/t/p/original/y2Yp7KC2FJSsdlRM5qkkIwQGCqU.jpg")
-                        .timeout(60000)
-                        .override(320, 480)
-                        .into(binding.gnomeImage)
-
                     return true
                 }
 
