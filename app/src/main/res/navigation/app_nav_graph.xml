@@ -18,5 +18,9 @@
         android:id="@+id/gnomeDetailsFragment"
         android:name="com.y4kuzabanzai.testforvass.fragments.GnomeDetailsFragment"
         android:label="fragment_gnome_details"
-        tools:layout="@layout/fragment_gnome_details" />
+        tools:layout="@layout/fragment_gnome_details" >
+        <argument
+            android:name="currentGnome"
+            app:argType="com.y4kuzabanzai.testforvass.Models.Gnome" />
+    </fragment>
 </navigation>

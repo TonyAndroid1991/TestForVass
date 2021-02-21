@@ -1,7 +1,10 @@
 package com.y4kuzabanzai.testforvass.Models
 
+import android.os.Parcelable
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
 
 data class Gnome(
     @SerializedName("age")
@@ -23,4 +26,4 @@ data class Gnome(
     val thumbnail: String,
     @SerializedName("weight")
     val weight: Double
-)
+): Serializable
