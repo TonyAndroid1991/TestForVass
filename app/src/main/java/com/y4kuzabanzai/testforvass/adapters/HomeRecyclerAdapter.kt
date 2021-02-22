@@ -58,8 +58,8 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
 
         binding.name.text = itemView.context.getString(R.string.name).plus(" " + gnome.name)
         binding.age.text = itemView.context.getString(R.string.age).plus(" " + gnome.age.toString())
-        binding.gnomeElementId.text =
-            itemView.context.getString(R.string.id).plus(" " + gnome.id.toString())
+        binding.gnomeElementId.text = itemView.context.getString(R.string.id).plus(" " + gnome.id.toString())
+        binding.gnomeElementHairColor.text = itemView.context.getString(R.string.hair_color).plus(" " + gnome.hairColor.toString())
 
 
         val requestOptions = RequestOptions()

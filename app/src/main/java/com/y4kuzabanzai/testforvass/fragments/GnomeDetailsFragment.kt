@@ -1,16 +1,25 @@
 package com.y4kuzabanzai.testforvass.fragments
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.databinding.FragmentGnomeDetailsBinding
+import com.y4kuzabanzai.testforvass.viewmodels.GlideApp
 
 class GnomeDetailsFragment : Fragment() {
 
@@ -44,6 +53,43 @@ class GnomeDetailsFragment : Fragment() {
             detailsHeight.text = getString(R.string.height).plus(" " + currentGnome.height.toString())
             detailsHairColor.text = getString(R.string.hair_color).plus(" " + currentGnome.hairColor)
             detailsId.text = getString(R.string.id).plus(" " + currentGnome.id.toString())
+
+
+            val requestOptions = RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+
+
+            GlideApp.with(requireActivity())
+                .applyDefaultRequestOptions(requestOptions)
+                .load(currentGnome.thumbnail)
+                .timeout(60000)
+                .override(320, 480)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.e("Glide", "onLoadFailed: $e  =========")
+                        Toast.makeText(requireContext(), "Glide failed to connect or obtain the data", Toast.LENGTH_LONG).show()
+
+                        return true
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
+
+                })
+                .into(binding.currentGnomeImage)
 
             setFriendsList()
             setProfessionsList()
