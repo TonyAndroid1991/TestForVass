@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -40,6 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
                         android:textSize="20dp" />
 
 
@@ -49,6 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
                         android:textSize="20dp" />
 
 
@@ -58,6 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
                         android:text="@string/weight"
                         android:textSize="20dp" />
 
@@ -68,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
                         android:text="@string/height"
                         android:textSize="20dp" />
 
@@ -77,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
                         android:text="@string/hair_color"
                         android:textSize="20dp" />
 
@@ -86,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
                         android:textSize="20dp" />
 
                 </LinearLayout>

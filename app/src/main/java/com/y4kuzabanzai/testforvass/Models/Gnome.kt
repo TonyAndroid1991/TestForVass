@@ -1,6 +1,5 @@
 package com.y4kuzabanzai.testforvass.Models
 
-import android.os.Parcelable
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

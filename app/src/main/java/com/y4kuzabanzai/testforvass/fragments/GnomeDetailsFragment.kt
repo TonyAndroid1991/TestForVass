@@ -73,8 +73,6 @@ class GnomeDetailsFragment : Fragment() {
                         isFirstResource: Boolean
                     ): Boolean {
                         Log.e("Glide", "onLoadFailed: $e  =========")
-                        Toast.makeText(requireContext(), "Glide failed to connect or obtain the data", Toast.LENGTH_LONG).show()
-
                         return true
                     }
 
