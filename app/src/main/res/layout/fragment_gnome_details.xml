@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum=".9"
+        android:background="@drawable/background_image"
         tools:context=".fragments.GnomeDetailsFragment">
 
 
@@ -111,8 +112,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Professions"
+                android:text="@string/professions"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <ListView
@@ -135,8 +137,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Friends"
+                android:text="@string/friends"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <ListView
