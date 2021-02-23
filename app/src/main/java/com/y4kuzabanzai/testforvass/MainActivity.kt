@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
 
     companion object {
-        private const val TAG = "MainActivity"
+       
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
