@@ -26,16 +26,4 @@ class RetrofitInstance {
             retrofit.create(ApiService::class.java)
         }
     }
-
-
-
-//    val retrofit: Retrofit.Builder by lazy {
-//        Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//    }
-//
-//    val apiService: ApiService by lazy {
-//        retrofit.build().create(ApiService::class.java)
-//    }
 }

@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -50,13 +53,19 @@ class HomeRecyclerAdapter(var homeFragment: HomeFragment): ListAdapter<Gnome, Gn
 
 class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolder(binding.root) {
 
+    private val USER_AGENT = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36"
+
     fun bindElements(gnome: Gnome) {
 
         binding.name.text = itemView.context.getString(R.string.name).plus(" " + gnome.name)
         binding.age.text = itemView.context.getString(R.string.age).plus(" " + gnome.age.toString())
         binding.gnomeElementId.text = itemView.context.getString(R.string.id).plus(" " + gnome.id.toString())
-        binding.gnomeElementHairColor.text = itemView.context.getString(R.string.hair_color).plus(" " + gnome.hairColor.toString())
+        binding.gnomeElementHairColor.text = itemView.context.getString(R.string.hair_color).plus(" " + gnome.hairColor)
 
+
+        val glideUrl = GlideUrl(
+            gnome.thumbnail,
+            LazyHeaders.Builder().addHeader("User-Agent", USER_AGENT).build())
 
         val requestOptions = RequestOptions()
             .placeholder(R.drawable.ic_launcher_background)
@@ -65,7 +74,7 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
 
         GlideApp.with(itemView.context)
             .applyDefaultRequestOptions(requestOptions)
-            .load(gnome.thumbnail)
+            .load(glideUrl)
             .timeout(60000)
             .override(320, 480)
             .listener(object : RequestListener<Drawable> {

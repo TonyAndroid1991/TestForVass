@@ -21,7 +21,6 @@ import com.y4kuzabanzai.testforvass.viewmodels.HomeFragmentViewModel
 
 class HomeFragment : Fragment() {
 
-
     lateinit var binding: FragmentHomeBinding
     lateinit var viewModel: HomeFragmentViewModel
 
