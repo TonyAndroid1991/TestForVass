@@ -1,12 +1,11 @@
 package com.y4kuzabanzai.testforvass.viewmodels
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.y4kuzabanzai.testforvass.GnomeEnumInfo
-import com.y4kuzabanzai.testforvass.Models.BrastlewarkTown
 import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.repository.AppRepository
-import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class HomeFragmentViewModel : ViewModel() {
 
