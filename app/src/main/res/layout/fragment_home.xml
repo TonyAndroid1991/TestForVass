@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/background_image"
         android:weightSum="9"
         tools:context=".fragments.HomeFragment">
 
@@ -25,7 +24,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/purple_700">
 
 
                 <TextView
@@ -56,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:background="@color/purple_700"
             android:orientation="vertical">
 
 

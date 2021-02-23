@@ -64,7 +64,7 @@ class GnomeDetailsFragment : Fragment() {
                 .applyDefaultRequestOptions(requestOptions)
                 .load(currentGnome.thumbnail)
                 .timeout(60000)
-                .override(320, 480)
+                .override(480, 800)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
