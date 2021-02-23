@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
 
     companion object {
-       
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
