@@ -16,7 +16,6 @@ import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.adapters.HomeRecyclerAdapter
 import com.y4kuzabanzai.testforvass.databinding.FragmentHomeBinding
-import com.y4kuzabanzai.testforvass.viewmodels.HomeFragmentViewModel
 
 
 class HomeFragment : Fragment() {
@@ -42,7 +41,6 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "HomeFragment"
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

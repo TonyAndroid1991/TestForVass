@@ -1,4 +1,4 @@
-package com.y4kuzabanzai.testforvass.viewmodels
+package com.y4kuzabanzai.testforvass.fragments
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

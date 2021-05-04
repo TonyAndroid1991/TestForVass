@@ -7,7 +7,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.y4kuzabanzai.testforvass.viewmodels.HomeFragmentViewModel" />
+            type="com.y4kuzabanzai.testforvass.fragments.HomeFragmentViewModel" />
     </data>
 
     <LinearLayout

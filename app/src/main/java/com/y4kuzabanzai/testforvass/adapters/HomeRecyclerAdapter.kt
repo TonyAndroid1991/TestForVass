@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.model.GlideUrl
@@ -19,7 +20,6 @@ import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.databinding.GnomeElementBinding
 import com.y4kuzabanzai.testforvass.fragments.HomeFragment
 import com.y4kuzabanzai.testforvass.fragments.HomeFragmentDirections
-import com.y4kuzabanzai.testforvass.viewmodels.GlideApp
 
 class HomeRecyclerAdapter(var homeFragment: HomeFragment): ListAdapter<Gnome, GnomesViewHolder>(GnomeDiffUtil()) {
 
@@ -70,7 +70,7 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
             .error(R.drawable.ic_launcher_background)
 
 
-        GlideApp.with(itemView.context)
+       Glide.with(itemView.context)
             .applyDefaultRequestOptions(requestOptions)
             .load(glideUrl)
             .timeout(60000)
@@ -82,7 +82,7 @@ class GnomesViewHolder(var binding: GnomeElementBinding): RecyclerView.ViewHolde
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.e("Glide", "onLoadFailed: $e  =========")
+                    Log.e("Glide", "onLoadFailed: $e")
                     return true
                 }
 

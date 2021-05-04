@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -18,7 +19,6 @@ import com.bumptech.glide.request.target.Target
 import com.y4kuzabanzai.testforvass.Models.Gnome
 import com.y4kuzabanzai.testforvass.R
 import com.y4kuzabanzai.testforvass.databinding.FragmentGnomeDetailsBinding
-import com.y4kuzabanzai.testforvass.viewmodels.GlideApp
 
 class GnomeDetailsFragment : Fragment() {
 
@@ -59,7 +59,7 @@ class GnomeDetailsFragment : Fragment() {
                 .error(R.drawable.ic_launcher_background)
 
 
-            GlideApp.with(requireActivity())
+            Glide.with(requireActivity())
                 .applyDefaultRequestOptions(requestOptions)
                 .load(currentGnome.thumbnail)
                 .timeout(60000)
@@ -71,7 +71,7 @@ class GnomeDetailsFragment : Fragment() {
                         target: Target<Drawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.e("Glide", "onLoadFailed: $e  =========")
+                        Log.e("Glide", "onLoadFailed: $e")
                         return true
                     }
 
